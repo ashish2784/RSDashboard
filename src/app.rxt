@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  %sveltekit.head%
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"> </script>
+
+
+<style>
+  .menu-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer text-gray-700 hover:bg-white hover:shadow-sm;
+  }
+  .menu-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #6b7280;
+  }
+</style>
+
+  <title> Navbar</title>
+<body class="bg--100">
+<div style="display: contents">%sveltekit.body%</div>
+
+
+    <nav class="bg-black">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      
+      <!-- Logo -->
+      <div class=" flex items-center">
+        <a href="#top"><img src="images/logo.png" alt="Logo" class="h-8 w-auto"></a>
+      </div>
+
+        <!-- Search Bar -->
+      <div class="flex-1 flex justify-center">
+        <img src="images/image copy 5.png" alt="Search" class="h-4 w-4 ml-2 mt-1">
+    <input
+      type="text"
+      placeholder="Search machine name or ID..." 
+      class="w-80 max-w-full border rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+    </input>
+    
+  </div>
+
+      <div>
+      <button class="bg-orange-600 text-white px-4 py-2 rounded-full" aria-label="Profile protection" title="Profile protection">
+        <span class="sr-only">Profile protection</span>
+        <img src="images/image.png" alt="Profile" class="h-3 w-3">
+       </button>
+       </div>
+       &nbsp;
+       
+
+       <div><button class="bg-orange-600 text-white px-4 py-2 rounded-full" aria-label="Profile protection" title="Profile protection">
+        <span class="sr-only">Profile protection</span>
+        <img src="images/image 2.png" alt="Profile" class="h-3 w-3">
+       </button></div>
+
+    </nav>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Machine Dashboard</title>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+<!-- ================= TOP BAR ================= -->
+<header class="h-14 bg-white shadow flex items-center px-6 justify-between">
+  
+<label for="section-select" class=" hover:text-orange-600  cursor-pointer font-semibold mb-4 ">Section</label>
+  <select id="section-select" class="border rounded-2xl p-2 text-sm ">
+      <option>Assembly Line</option>
+      <option>Floor 2</option> 
+      <option>Cutting Area</option>
+      <option>Welding Area</option>
+    </select>
+
+    <div class="flex gap-3">
+    <button onclick="location.reload()"
+      class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm hover:ring-2 hover:ring-orange-400"
+    >
+      All
+
+  <div class="flex gap-3">
+    <button onclick="filterCards('ACTIVE')" 
+      class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm hover:ring-2 hover:ring-green-400">
+      Active
+    </button>
+
+    <button onclick="filterCards('IDLE')"
+      class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-sm hover:ring-2 hover:ring-yellow-300">
+      Idle
+    </button>
+
+    <button onclick="filterCards('OFFLINE')"
+      class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm hover:ring-2 hover:ring-gray-300">
+      Offline
+    </button>
+
+    <button onclick="filterCards('BREAKDOWN')"
+      class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-sm hover:ring-2 hover:ring-red-300">
+      Break down
+    </button>
+    
+  <button onclick="filterCards('SETUP')"
+      class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm hover:ring-2 hover:ring-blue-300">
+      Setup
+    </button>
+</header>
+
+<!-- ================= MAIN LAYOUT ================= -->
+<div class="flex h-[calc(100vh-56px)]">
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside
+    id="sidebar"
+    class="w-64 bg-gray-50 border-r transition-all duration-300 flex flex-col"
+  >
+
+    <!-- Menu -->
+    <nav class="flex-1 px-2 space-y-1">
+      <!-- Active -->
+      <div class="menu-item ">
+        <span class="menu-icon"></span>
+        <span class="sidebar-title text-center place-items-center   hover:text-orange-600  cursor-pointer "><img src="images/image copy.png" alt="My Factory" class="h-6 w-6 inline-block"> My Factory</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-icon"></span>
+        <span class="sidebar-text text-center  hover:text-orange-600  cursor-pointer "><img src="images/image copy.png" alt="Machines" class="h-6 w-6 inline-block"> Machines</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-icon"></span>
+        <span class="sidebar-text text-center  hover:text-orange-600  cursor-pointer "><img src="images/image copy.png" alt="Production Info" class="h-6 w-6 inline-block"> Production Info</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-icon"></span>
+        <span class="sidebar-text object-center  hover:text-orange-600  cursor-pointer "><img src="images/image copy.png" alt="Operations" class="h-6 w-6 inline-block"> Operations</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-icon"></span>
+        <span class="sidebar-text  hover:text-orange-600  cursor-pointer "><img src="images/image copy 4.png" alt="Maintenance" class="h-6 w-6 inline-block"> Maintenance Mode</span>
+      </div>
+    </nav>
+
+    <!-- Collapse (Bottom) -->
+    <button
+      onclick="toggleSidebar()"
+      class="m-3 mt-auto flex items-center gap-2 text-sm text-gray-600 hover:text-orange-600"
+    >
+      <span id="collapse-icon">◀</span>
+      <span id="collapse-text" class="sidebar-text">Collapse Menu</span>
+    </button>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="flex-1 p-6 overflow-y-auto">
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- CARD -->
+      <div class="bg-red-100 rounded-xl shadow p-5" data-status="BREAKDOWN">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">BREAKDOWN</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base font-normal">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+      <!-- CARD -->
+      <div class="bg-green-50 rounded-xl shadow p-5" data-status="ACTIVE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">ACTIVE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">7836 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-red-400 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-red-500 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+      <!-- CARD -->
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+      <!-- CARD -->
+      <div class="bg-blue-50 rounded-xl shadow p-5" data-status="SETUP">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">SETUP</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">NA</p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-gray-300 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-gray-500 text-xl font-bold">NA</span>
+        </div>
+      </div>
+
+
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span> 
+        </div>
+      </div>
+
+
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+
+
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+
+
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+
+      <div class="bg-yellow-50 rounded-xl shadow p-5" data-status="IDLE">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">MACHINE NAME / ID</h3>
+          <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">IDLE</span>
+        </div>
+
+        <p class="text-sm text-gray-500">Total Production</p>
+        <p class="text-3xl font-bold mt-1">1004 <span class="text-base">m</span></p>
+
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border-4 border-green-500 flex items-center justify-center text-sm font-semibold">
+            OEE
+          </div>
+          <span class="text-green-600 text-xl font-bold">50%</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+
+
+<script>
+  let collapsed = false;
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const texts = document.querySelectorAll(".sidebar-text");
+    const collapseText = document.getElementById("collapse-text");
+    const icon = document.getElementById("collapse-icon");
+
+    collapsed = !collapsed;
+
+    if (collapsed) {
+      sidebar.classList.remove("w-64");
+      sidebar.classList.add("w-16");
+      texts.forEach(t => t.classList.add("hidden"));
+      collapseText.classList.add("hidden");
+      icon.textContent = "▶";
+    } else {
+      sidebar.classList.remove("w-16");
+      sidebar.classList.add("w-64");
+      texts.forEach(t => t.classList.remove("hidden"));
+      collapseText.classList.remove("hidden");
+      icon.textContent = "◀";
+    }
+  }
+</script>
+
+
+
+
+<script>
+
+    
+  function filterCards(status) {
+    const cards = document.querySelectorAll('[data-status]');
+
+    cards.forEach(card => {
+      if (card.dataset.status === status) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
